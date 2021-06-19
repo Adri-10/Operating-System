@@ -1,0 +1,226 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+struct Process{
+public:
+    int processID;
+    string processName;
+    string processStatus;
+    int burst;
+    int arrivalTime;
+    int priority;
+     int processCounter;
+public:
+    Process(){}
+    void setProcess(string processName, int burst, int arrivalTime, int priority){
+
+        this->processName=processName;
+        this->burst=burst;
+        this->arrivalTime=arrivalTime;
+        this->priority=priority;
+
+
+            }
+    // design appropriate getter and setter methods
+
+	};
+
+int SIZE=100000;
+
+/* you may use other advanced data structures such as Linked List or Vector */
+Process JOB_QUEUE[100000];
+Process READY_QUEUE[100000];
+Process DEVICE_QUEUE[100000];
+
+/* keeping track of processes in the queue */
+int job_queue_front, job_queue_rear = 0;
+int ready_queue_front, ready_queue_rear = 0;
+int device_queue_front, device_queue_rear = 0;
+
+int GANTT_CHART[1000];
+void initGanttChart(){
+    /* for producing gantt chart */
+}
+
+/* initiating a process */
+void createProcess(){
+
+int n;
+
+cout<<"How many process you have: ";
+cin>>n;
+
+Process p[n];
+
+for(int i=0;i<n;i++){
+
+	p[i].processID=i+1;
+	cin>>p[i].processName>>p[i].processStatus>>p[i].processCounter>>p[i].arrivalTime>>p[i].burst>>p[i].priority;
+
+JOB_QUEUE[job_queue_rear].setProcess(p[i].processName,p[i].burst,p[i].arrivalTime,p[i].priority);
+
+JOB_QUEUE[job_queue_rear].processName=p[i].processName;
+JOB_QUEUE[job_queue_rear].processID=p[i].processID;
+JOB_QUEUE[job_queue_rear].processCounter=p[i].processCounter;
+
+	job_queue_rear++;
+
+}
+
+    /* Write code to create process and put the process into the job queue */
+
+}
+/* printing job queue */
+void showJobQueue(){
+
+for( Process i: JOB_QUEUE ){
+
+//	i.toString();
+
+
+
+}
+
+}
+/* printing ready queue */
+void showReadyQueue(){
+
+}
+/* once user is ready, shifting process from new -> ready state */
+void readyProcess(){
+
+}
+/* displaying gantt chart */
+void displayGanttChart(int clock){
+
+}
+
+void fcfs(){
+
+createProcess();
+
+for(int i=0;i<job_queue_rear-1;i++ ){
+
+	for(int j=0;j<job_queue_rear-i-1;j++){
+
+		Process temp=JOB_QUEUE[j];
+		JOB_QUEUE[j]=JOB_QUEUE[j+1];
+		JOB_QUEUE[j+1]=temp;
+
+	}
+
+}
+
+int sum=0;
+
+for(int i=0;i<100000;i++){
+
+	if( JOB_QUEUE[i].processCounter!=0 ){
+
+	sum+=JOB_QUEUE[i].burst;
+
+	cout<<JOB_QUEUE[i].processID<<"	"<<JOB_QUEUE[i].processName<<"		"<<JOB_QUEUE[i].processStatus<<"		"<<JOB_QUEUE[i].arrivalTime<<"		"<<JOB_QUEUE[i].burst<<"		"<<sum<<endl;
+
+	}
+
+}
+
+cout<<endl;
+
+}
+
+void sjf(){
+createProcess();
+
+}
+
+void srtf(){
+
+}
+
+void priorityScheduling(){
+
+}
+
+void preemptivePriorityScheduling(){
+
+}
+void roundRobin(){
+
+}
+
+void executeProcess(){
+    int choice;
+
+    cout << "Enter Choice: ";
+    cin >> choice;
+    switch(choice){
+    case 1:
+        fcfs();
+        break;
+    case 2:
+        sjf();
+        break;
+    case 3:
+        srtf();
+        break;
+    case 4:
+        priorityScheduling();
+        break;
+    case 5:
+        preemptivePriorityScheduling();
+        break;
+    case 6:
+        roundRobin();
+        break;
+    default:
+        cout << "Unrecognized Option. " << endl;
+    }
+}
+
+void reexecuteProcess(){
+
+}
+
+int main(){
+    string command;
+    do{
+        cout << "> ";
+        cin >> command;
+        if(command=="create-process"){
+            createProcess();
+        }
+        else if(command=="ready-process"){
+            readyProcess();
+        }
+        else if(command=="show-job-queue"){
+            showJobQueue();
+        }
+        else if(command=="show-ready-queue"){
+            showReadyQueue();
+        }
+        else if(command=="execute-process"){
+            executeProcess();
+        }
+        else if(command=="reexecute-process"){
+            reexecuteProcess();
+        }
+        else if(command=="exit"){
+            cout << "Thank You." << endl;
+            exit(0);
+        }
+        else{
+            cout << "Unrecognized Command. Try again." << endl;
+        }
+    } while(true);
+}
+/*
+execute-process
+1
+4
+p preem 1 1 3 1
+q preem 2 2 4 3
+r preem 3 1 2 2
+s preem 4 4 4 4
+*/
